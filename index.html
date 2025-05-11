@@ -952,7 +952,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 Torneo EA FC 25 Champions. Todos los derechos reservados.</p>
+                <p>&copy; 2025 Torneo EA FC 25 Champions. Todos los derechos reservados. | Desarrollado por <a href="https://chat.whatsapp.com/KlRVFUz0Z6h4YsxsDYGwXB" target="_blank" rel="noopener noreferrer">Nemesis Xpert</a></p>
             </div>
         </div>
     </footer>
@@ -1002,6 +1002,9 @@
         let conteoEquipos = {};
         
         document.addEventListener('DOMContentLoaded', async function() {
+            // Verify and ensure all teams are loaded
+            await verificarEquiposEnTeamCounts();
+            
             // Fetch team counts from Supabase
             try {
                 const { data: teamCounts, error } = await supabase
@@ -1110,8 +1113,6 @@
                 
                 // Verify total slots
                 const totalInscritos = Object.values(conteoEquipos).reduce((sum, count) => sum + count, 0);
-                console.log('Total inscritos actual:', totalInscritos);
-                
                 if (totalInscritos >= 32) {
                     alert('El torneo ha alcanzado el límite máximo de 32 participantes. ¡Gracias por tu interés!');
                     actualizarEquiposDisponibles();
@@ -1120,8 +1121,6 @@
 
                 const formData = new FormData(this);
                 const equipoSeleccionado = formData.get('equipo');
-                console.log('Equipo seleccionado:', equipoSeleccionado);
-                console.log('Cupos actuales para el equipo:', conteoEquipos[equipoSeleccionado]);
 
                 // Validate team selection
                 if (!equipoSeleccionado) {
@@ -1137,7 +1136,6 @@
                 }
 
                 try {
-                    console.log('Intentando guardar registro...');
                     // Save registration to Supabase
                     const { data: registration, error: registrationError } = await supabase
                         .from('registrations')
@@ -1149,28 +1147,18 @@
                             referencia_pago: formData.get('referencia')
                         }]);
 
-                    if (registrationError) {
-                        console.error('Error al guardar registro:', registrationError);
-                        throw registrationError;
-                    }
-                    console.log('Registro guardado exitosamente');
+                    if (registrationError) throw registrationError;
 
-                    console.log('Actualizando conteo del equipo...');
                     // Update team count
                     const { error: updateError } = await supabase
                         .from('team_counts')
                         .update({ count: conteoEquipos[equipoSeleccionado] + 1 })
                         .eq('team_name', equipoSeleccionado);
 
-                    if (updateError) {
-                        console.error('Error al actualizar conteo:', updateError);
-                        throw updateError;
-                    }
-                    console.log('Conteo actualizado exitosamente');
+                    if (updateError) throw updateError;
 
                     // Update local count
                     conteoEquipos[equipoSeleccionado]++;
-                    console.log('Nuevo conteo local:', conteoEquipos[equipoSeleccionado]);
                     
                     // Show confirmation
                     confirmationModal.style.display = 'flex';
@@ -1180,10 +1168,9 @@
                     document.getElementById('pago-info').style.display = 'none';
                     
                     // Update interface
-                    await actualizarEquiposDisponibles();
-                    console.log('Interfaz actualizada');
+                    actualizarEquiposDisponibles();
                 } catch (error) {
-                    console.error('Error completo:', error);
+                    console.error('Error:', error);
                     alert('Hubo un problema al enviar tu inscripción. Por favor inténtalo de nuevo o contáctanos por WhatsApp.');
                 }
             });
@@ -1196,18 +1183,12 @@
 
         async function actualizarEquiposDisponibles() {
             try {
-                console.log('Actualizando equipos disponibles...');
                 // Fetch latest counts from Supabase
                 const { data: teamCounts, error } = await supabase
                     .from('team_counts')
                     .select('*');
                 
-                if (error) {
-                    console.error('Error al obtener conteos:', error);
-                    throw error;
-                }
-                
-                console.log('Conteos obtenidos:', teamCounts);
+                if (error) throw error;
                 
                 // Update local counts
                 teamCounts.forEach(count => {
@@ -1224,14 +1205,12 @@
                 // Calculate totals
                 let totalInscritos = Object.values(conteoEquipos).reduce((sum, count) => sum + count, 0);
                 let cuposDisponibles = 32 - totalInscritos;
-                console.log('Total inscritos:', totalInscritos);
-                console.log('Cupos disponibles:', cuposDisponibles);
+                let equiposConCupo = 0;
 
                 // Process each team
                 equiposChampions.forEach(equipo => {
                     const inscritos = conteoEquipos[equipo.nombre] || 0;
                     const disponible = (cuposDisponibles > 0) && (inscritos < 5);
-                    console.log(`Equipo ${equipo.nombre}: ${inscritos} inscritos, ${disponible ? 'disponible' : 'completo'}`);
                     
                     // Create team card
                     const teamCard = document.createElement('div');
@@ -1255,6 +1234,7 @@
 
                     // Add to select if available
                     if (disponible) {
+                        equiposConCupo++;
                         const option = document.createElement('option');
                         option.value = equipo.nombre;
                         option.textContent = `${equipo.nombre} (${5 - inscritos} cupo${5 - inscritos !== 1 ? 's' : ''})`;
@@ -1274,9 +1254,57 @@
                 
                 return cuposDisponibles;
             } catch (error) {
-                console.error('Error actualizando equipos disponibles:', error);
+                console.error('Error updating available teams:', error);
                 alert('Error al actualizar los equipos disponibles. Por favor recarga la página.');
                 return 0;
+            }
+        }
+
+        // Función para verificar y asegurar que todos los equipos estén en team_counts
+        async function verificarEquiposEnTeamCounts() {
+            try {
+                // Obtener todos los equipos actuales en team_counts
+                const { data: teamCounts, error } = await supabase
+                    .from('team_counts')
+                    .select('*');
+                
+                if (error) throw error;
+
+                // Crear un mapa de equipos existentes
+                const equiposExistentes = new Map(teamCounts.map(count => [count.team_name, count]));
+
+                // Verificar cada equipo en equiposChampions
+                const equiposFaltantes = equiposChampions.filter(equipo => 
+                    !equiposExistentes.has(equipo.nombre)
+                );
+
+                // Si hay equipos faltantes, insertarlos
+                if (equiposFaltantes.length > 0) {
+                    const nuevosEquipos = equiposFaltantes.map(equipo => ({
+                        team_name: equipo.nombre,
+                        count: 0
+                    }));
+
+                    const { error: insertError } = await supabase
+                        .from('team_counts')
+                        .insert(nuevosEquipos);
+
+                    if (insertError) throw insertError;
+                    console.log(`Se agregaron ${equiposFaltantes.length} equipos faltantes a team_counts`);
+                }
+
+                // Verificar si hay equipos en team_counts que no están en equiposChampions
+                const equiposExtra = teamCounts.filter(count => 
+                    !equiposChampions.some(equipo => equipo.nombre === count.team_name)
+                );
+
+                if (equiposExtra.length > 0) {
+                    console.log('Se encontraron equipos en team_counts que no están en la lista de equipos válidos:', 
+                        equiposExtra.map(e => e.team_name));
+                }
+
+            } catch (error) {
+                console.error('Error al verificar equipos en team_counts:', error);
             }
         }
     </script>
