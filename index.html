@@ -588,24 +588,39 @@
         
         // Sample teams data (replace with actual FC 25 teams)
         const teams = [
-            { id: 1, name: 'Real Madrid', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Real_Madrid_CF.svg/1200px-Real_Madrid_CF.svg.png', slots: 5 },
-            { id: 2, name: 'Barcelona', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/1200px-FC_Barcelona_%28crest%29.svg.png', slots: 5 },
-            { id: 3, name: 'Manchester City', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/eb/Manchester_City_FC_badge.svg/1200px-Manchester_City_FC_badge.svg.png', slots: 5 },
-            { id: 4, name: 'Liverpool', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Liverpool_FC.svg/1200px-Liverpool_FC.svg.png', slots: 5 },
-            { id: 5, name: 'Bayern Munich', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg/1200px-FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg.png', slots: 5 },
-            { id: 6, name: 'PSG', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Paris_Saint-Germain_F.C..svg/1200px-Paris_Saint-Germain_F.C..svg.png', slots: 5 },
-            { id: 7, name: 'Chelsea', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/1200px-Chelsea_FC.svg.png', slots: 5 },
-            { id: 8, name: 'Manchester United', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/1200px-Manchester_United_FC_crest.svg.png', slots: 5 },
-            { id: 9, name: 'Juventus', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Juventus_FC_2017_logo.svg/1200px-Juventus_FC_2017_logo.svg.png', slots: 5 },
-            { id: 10, name: 'Inter Milan', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/FC_Internazionale_Milano_2021.svg/1200px-FC_Internazionale_Milano_2021.svg.png', slots: 5 },
-            { id: 11, name: 'AC Milan', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Logo_of_AC_Milan.svg/1200px-Logo_of_AC_Milan.svg.png', slots: 5 },
-            { id: 12, name: 'Atlético Madrid', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f4/Atletico_Madrid_2017_logo.svg/1200px-Atletico_Madrid_2017_logo.svg.png', slots: 5 },
-            { id: 13, name: 'Arsenal', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/53/Arsenal_FC.svg/1200px-Arsenal_FC.svg.png', slots: 5 },
-            { id: 14, name: 'Tottenham', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Tottenham_Hotspur.svg/1200px-Tottenham_Hotspur.svg.png', slots: 5 },
-            { id: 15, name: 'Borussia Dortmund', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Borussia_Dortmund_logo.svg/1200px-Borussia_Dortmund_logo.svg.png', slots: 5 },
-            { id: 16, name: 'Napoli', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/S.S.C._Napoli_logo.svg/1200px-S.S.C._Napoli_logo.svg.png', slots: 5 }
-        ];
-        
+            { nombre: "Real Madrid", logo: "https://i.ibb.co/twrzCVXf/real-madrid.png" },
+            { nombre: "Barcelona", logo: "https://i.ibb.co/pjm42BkC/BARCELONA.png" },
+            { nombre: "Bayern Múnich", logo: "https://i.ibb.co/mChM8rpX/BAYER.png" },
+            { nombre: "Manchester City", logo: "https://i.ibb.co/RpnbGQnK/MANCHESTER-CITY.png" },
+            { nombre: "Liverpool", logo: "https://i.ibb.co/k250tfJM/liverpool.png" },
+            { nombre: "PSG", logo: "https://i.ibb.co/yBGv9gnF/psg.png" },
+            { nombre: "Chelsea", logo: "https://i.ibb.co/rGF0gmp0/CHELSEA.png" },
+            { nombre: "Inter de Milán", logo: "https://i.ibb.co/Tx0SSZS4/INTER-DE-MLINA.png" },
+            { nombre: "AC Milan", logo: "https://i.ibb.co/ZRgGJtrJ/ACM.png" },
+            { nombre: "Juventus", logo: "https://i.ibb.co/WWZMvzRs/JUVENTUS.png" },
+            { nombre: "Arsenal", logo: "https://i.ibb.co/603grPvX/8.png" },
+            { nombre: "Borussia Dortmund", logo: "https://i.ibb.co/HDzfMj9G/BORUSSIA.png" },
+            { nombre: "Atlético de Madrid", logo: "https://i.ibb.co/4nMyxY4c/ATLETICO.png" },
+            { nombre: "Sevilla", logo: "https://i.ibb.co/N6jGQB4Y/SEVILLA.png" },
+            { nombre: "RB Leipzig", logo: "https://i.ibb.co/HfDtRrKB/RB-LEIPZIONG.png" },
+            { nombre: "Benfica", logo: "https://i.ibb.co/218WL3tN/BENFICA.png" },
+            { nombre: "Porto", logo: "https://i.ibb.co/7f7rLHz/PORTO.png" },
+            { nombre: "Ajax", logo: "https://i.ibb.co/bg7zDycy/AJAX.png" },
+            { nombre: "Shakhtar Donetsk", logo: "https://i.ibb.co/VYRRn81p/SHAKHTAR.png" },
+            { nombre: "Celtic", logo: "https://i.ibb.co/G30kNvRL/CELTIC.png" },
+            { nombre: "Rangers", logo: "https://i.ibb.co/DfD0247k/RANGER.png" },
+            { nombre: "Galatasaray", logo: "https://i.ibb.co/dsnW08bR/GALATASARAY.png" },
+            { nombre: "Fenerbahçe", logo: "https://i.ibb.co/Q3S0BN82/FENERBA.png" },
+            { nombre: "Olympiakos", logo: "https://i.ibb.co/zhGvQGwy/Olympiacos.png" },
+            { nombre: "Dinamo Kiev", logo: "https://i.ibb.co/BKHd0fQ2/DINAMO-KIEV.png" },
+            { nombre: "Red Bull Salzburg", logo: "https://i.ibb.co/5hn4v5Gp/Red-Bull-Salzburg.png" },
+            { nombre: "Sporting de Lisboa", logo: "https://i.ibb.co/JW8msbgK/Sporting-de-Lisboa.png" },
+            { nombre: "PSV Eindhoven", logo: "https://i.ibb.co/HLZKbrBc/25.png" },
+            { nombre: "Napoli", logo: "https://i.ibb.co/1tYXmWYT/Napoli.png" },
+            { nombre: "Roma", logo: "https://i.ibb.co/gZL9cdDb/Roma.png" },
+            { nombre: "Lazio", logo: "https://i.ibb.co/gM2BJQQN/Lazio.png" },
+            { nombre: "Copenhague", logo: "https://i.ibb.co/5WBwS3RD/29.png" }
+                
         // Load teams into the grid and select dropdown
         function loadTeams() {
             const teamsGrid = document.getElementById('teamsGrid');
