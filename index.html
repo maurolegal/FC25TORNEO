@@ -150,7 +150,8 @@
     <p>Síguenos: Facebook | Instagram | TikTok | YouTube</p>
   </footer>
   <a href="https://wa.me/573027530234" class="whatsapp-button" target="_blank">💬</a>
-
+  
+<div> <label for="team-select">Equipo a elegir*</label> <select id="team-select" name="team" required> <option value="">Cargando equipos...</option> </select> </div> <div id="team-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-6"> <!-- Aquí se insertarán los equipos --> </div>
   <script>
     const equipos = [
       { nombre: "Real Madrid", logo: "https://i.ibb.co/twrzCVXf/real-madrid.png" },
@@ -241,5 +242,7 @@
       countdown.textContent = `${d}d ${h}h ${m}m ${s}s`;
     }, 1000);
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script> <script> const supabaseUrl = 'https://buwadgynxvxujcznzsut.supabase.co'; const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ1d2FkZ3lueHZ4dWpjem56c3V0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5NzE0NjcsImV4cCI6MjA2MjU0NzQ2N30.N0ZC-GYtoEc32PGzSLzscbDHZImiUaQ221nc_GFRXsI'; const supabase = supabase.createClient(supabaseUrl, supabaseKey); </script>
 </body>
+  <script> document.addEventListener('DOMContentLoaded', async () => { const select = document.getElementById('team-select'); const grid = document.getElementById('team-grid'); const { data: teams, error } = await supabase .from('game_teams') .select('*') .order('name', { ascending: true }); if (error) { console.error('Error al cargar equipos:', error); select.innerHTML = '<option value="">Error al cargar equipos</option>'; return; } // Limpiar selector select.innerHTML = '<option value="">Selecciona un equipo</option>'; teams.forEach(team => { // Agregar al selector const option = document.createElement('option'); option.value = team.name; option.textContent = `${team.name} (${team.available_slots} disponibles)`; if (team.available_slots <= 0) { option.disabled = true; } select.appendChild(option); // Agregar a la parrilla const card = document.createElement('div'); card.className = 'p-3 rounded-xl bg-gray-900 text-white text-center shadow-md'; card.innerHTML = ` <img src="${team.logo_url}" alt="${team.name}" class="w-20 h-20 mx-auto mb-2 object-contain"> <h3 class="font-bold text-sm">${team.name}</h3> <p class="text-xs">${team.available_slots} cupos disponibles</p> `; grid.appendChild(card); }); }); </script>
 </html>
