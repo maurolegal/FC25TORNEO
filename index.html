@@ -12,7 +12,7 @@
         // Initialize Supabase client
         const supabaseUrl = 'https://buwadgynxvxujcznzsut.supabase.co'
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ1d2FkZ3lueHZ4dWpjem56c3V0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5NzE0NjcsImV4cCI6MjA2MjU0NzQ2N30.N0ZC-GYtoEc32PGzSLzscbDHZImiUaQ221nc_GFRXsI'
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey)
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
     </script>
     <style>
         :root {
@@ -1110,6 +1110,8 @@
                 
                 // Verify total slots
                 const totalInscritos = Object.values(conteoEquipos).reduce((sum, count) => sum + count, 0);
+                console.log('Total inscritos actual:', totalInscritos);
+                
                 if (totalInscritos >= 32) {
                     alert('El torneo ha alcanzado el límite máximo de 32 participantes. ¡Gracias por tu interés!');
                     actualizarEquiposDisponibles();
@@ -1118,6 +1120,8 @@
 
                 const formData = new FormData(this);
                 const equipoSeleccionado = formData.get('equipo');
+                console.log('Equipo seleccionado:', equipoSeleccionado);
+                console.log('Cupos actuales para el equipo:', conteoEquipos[equipoSeleccionado]);
 
                 // Validate team selection
                 if (!equipoSeleccionado) {
@@ -1133,6 +1137,7 @@
                 }
 
                 try {
+                    console.log('Intentando guardar registro...');
                     // Save registration to Supabase
                     const { data: registration, error: registrationError } = await supabase
                         .from('registrations')
@@ -1144,18 +1149,28 @@
                             referencia_pago: formData.get('referencia')
                         }]);
 
-                    if (registrationError) throw registrationError;
+                    if (registrationError) {
+                        console.error('Error al guardar registro:', registrationError);
+                        throw registrationError;
+                    }
+                    console.log('Registro guardado exitosamente');
 
+                    console.log('Actualizando conteo del equipo...');
                     // Update team count
                     const { error: updateError } = await supabase
                         .from('team_counts')
                         .update({ count: conteoEquipos[equipoSeleccionado] + 1 })
                         .eq('team_name', equipoSeleccionado);
 
-                    if (updateError) throw updateError;
+                    if (updateError) {
+                        console.error('Error al actualizar conteo:', updateError);
+                        throw updateError;
+                    }
+                    console.log('Conteo actualizado exitosamente');
 
                     // Update local count
                     conteoEquipos[equipoSeleccionado]++;
+                    console.log('Nuevo conteo local:', conteoEquipos[equipoSeleccionado]);
                     
                     // Show confirmation
                     confirmationModal.style.display = 'flex';
@@ -1165,9 +1180,10 @@
                     document.getElementById('pago-info').style.display = 'none';
                     
                     // Update interface
-                    actualizarEquiposDisponibles();
+                    await actualizarEquiposDisponibles();
+                    console.log('Interfaz actualizada');
                 } catch (error) {
-                    console.error('Error:', error);
+                    console.error('Error completo:', error);
                     alert('Hubo un problema al enviar tu inscripción. Por favor inténtalo de nuevo o contáctanos por WhatsApp.');
                 }
             });
@@ -1180,12 +1196,18 @@
 
         async function actualizarEquiposDisponibles() {
             try {
+                console.log('Actualizando equipos disponibles...');
                 // Fetch latest counts from Supabase
                 const { data: teamCounts, error } = await supabase
                     .from('team_counts')
                     .select('*');
                 
-                if (error) throw error;
+                if (error) {
+                    console.error('Error al obtener conteos:', error);
+                    throw error;
+                }
+                
+                console.log('Conteos obtenidos:', teamCounts);
                 
                 // Update local counts
                 teamCounts.forEach(count => {
@@ -1202,12 +1224,14 @@
                 // Calculate totals
                 let totalInscritos = Object.values(conteoEquipos).reduce((sum, count) => sum + count, 0);
                 let cuposDisponibles = 32 - totalInscritos;
-                let equiposConCupo = 0;
+                console.log('Total inscritos:', totalInscritos);
+                console.log('Cupos disponibles:', cuposDisponibles);
 
                 // Process each team
                 equiposChampions.forEach(equipo => {
                     const inscritos = conteoEquipos[equipo.nombre] || 0;
                     const disponible = (cuposDisponibles > 0) && (inscritos < 5);
+                    console.log(`Equipo ${equipo.nombre}: ${inscritos} inscritos, ${disponible ? 'disponible' : 'completo'}`);
                     
                     // Create team card
                     const teamCard = document.createElement('div');
@@ -1231,7 +1255,6 @@
 
                     // Add to select if available
                     if (disponible) {
-                        equiposConCupo++;
                         const option = document.createElement('option');
                         option.value = equipo.nombre;
                         option.textContent = `${equipo.nombre} (${5 - inscritos} cupo${5 - inscritos !== 1 ? 's' : ''})`;
@@ -1251,7 +1274,7 @@
                 
                 return cuposDisponibles;
             } catch (error) {
-                console.error('Error updating available teams:', error);
+                console.error('Error actualizando equipos disponibles:', error);
                 alert('Error al actualizar los equipos disponibles. Por favor recarga la página.');
                 return 0;
             }
