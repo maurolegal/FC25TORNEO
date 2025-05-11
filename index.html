@@ -530,16 +530,47 @@
                         <div class="team-slots-info" id="teamSlotsInfo">Cupos disponibles: 5</div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="paymentMethod">Método de pago*</label>
-                        <select id="paymentMethod" class="form-control" required>
-                            <option value="">Selecciona método de pago</option>
-                            <option value="Nequi">Nequi</option>
-                            <option value="Daviplata">Daviplata</option>
-                            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
-                            <option value="Efectivo">Efectivo</option>
-                        </select>
+                 <div class="form-group">
+                    <label for="metodo-pago"><i class="fas fa-credit-card"></i> Método de pago*</label>
+                    <select id="metodo-pago" name="metodo-pago" required>
+                        <option value="">Selecciona método de pago</option>
+                        <option value="Bancolombia">Bancolombia</option>
+                        <option value="BBVA">Banco BBVA</option>
+                        <option value="Nequi">Nequi</option>
+                        <option value="Daviplata">Daviplata</option>
+                        <option value="PSE">Pago en línea (PSE/Tarjeta)</option>
+                    </select>
+                </div>
+                
+                <div id="pago-info" class="payment-info">
+                    <h3><i class="fas fa-info-circle"></i> Información de pago</h3>
+                    <div class="payment-method" data-method="Bancolombia">
+                        <p><strong>🏦BANCOLOMBIA</strong></p>
+                        <p>Ahorro a la Mano</p>
+                        <p>🔢19700032186</p>
+                        <p>👤ken**oso**per</p>
                     </div>
+                    <div class="payment-method" data-method="BBVA">
+                        <p><strong>🏦💙 BANCO BBVA</strong></p>
+                        <p>🔢940424419</p>
+                        <p>👤jos**Mau**Chi**</p>
+                    </div>
+                    <div class="payment-method" data-method="Nequi">
+                        <p><strong>📲NEQUI</strong></p>
+                        <p>👤jos**Mau**Chi**</p>
+                        <p>📞3045528042</p>
+                    </div>
+                    <div class="payment-method" data-method="Daviplata">
+                        <p><strong>📲DAVIPLATA</strong></p>
+                        <p>👤jos**Mau**Chi**</p>
+                        <p>📞3045528042</p>
+                    </div>
+                    <div class="payment-method" data-method="PSE">
+                        <p><strong>💻💳 PAGO EN LÍNEA (PSE / TARJETA DE CRÉDITO)</strong></p>
+                        <p>🌐 👉 <a href="https://checkout.wompi.co/l/90TJmP" target="_blank" style="color: var(--primary);">https://checkout.wompi.co/l/90TJmP</a></p>
+                    </div>
+                </div>
+                
                     
                     <div class="form-group">
                         <label for="paymentReference">Referencia de pago*</label>
