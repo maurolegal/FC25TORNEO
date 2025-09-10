@@ -1,0 +1,17 @@
+# Node
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# Env
+.env
+
+# Build
+dist/
+build/

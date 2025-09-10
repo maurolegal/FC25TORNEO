@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copa Valparaíso 2025 - Invitación</title>
+    <style>
+        /* Fuentes futuristas */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
+
+        :root {
+            --bg-overlay: rgba(6,8,18,0.6);
+            --panel: rgba(12,14,22,0.65);
+            --glass: rgba(255,255,255,0.03);
+            --neon-cyan: #00ffd2;
+            --neon-magenta: #ff2d8b;
+            --neon-green: #39ff14;
+            --accent: linear-gradient(90deg, rgba(0,255,210,0.12), rgba(255,45,139,0.08));
+            --soft: #c7d2ff;
+        }
+
+        *{box-sizing:border-box;margin:0;padding:0}
+        html,body{height:100%}
+
+        body{
+            background: url('https://i.ibb.co/qYxQRsKd/f35c76842a803313f087b15827c34ebb6890e71b-1920x1080.webp') center/cover no-repeat fixed;
+            font-family: 'Rajdhani', 'Orbitron', sans-serif;
+            color: var(--soft);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            position:relative;
+        }
+
+        /* Dark overlay to improve contrast */
+        body::before{
+            content:'';position:fixed;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.65));z-index:0;pointer-events:none
+        }
+
+        .container{
+            max-width:1100px;margin:28px auto;padding:24px;position:relative;z-index:1;
+            display:block
+        }
+
+        /* Header con estilo gamer */
+        header{
+            display:flex;align-items:center;gap:18px;justify-content:center;padding:20px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.05);backdrop-filter: blur(6px);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0,0,0,0.45) inset;
+        }
+
+        /* Título con brillo neón */
+        h1{font-family:'Orbitron',sans-serif;font-size:2.6rem;color:var(--neon-cyan);text-transform:uppercase;letter-spacing:2px;text-shadow:0 0 18px rgba(0,255,210,0.12),0 4px 18px rgba(0,0,0,0.6)}
+        .subtitle{color:#a8b3ff;opacity:.95;font-size:1rem}
+
+        /* Logos */
+        .logos-empresas{display:flex;justify-content:center;align-items:center;gap:28px;margin-bottom:12px}
+        .logos-empresas img{height:72px;max-width:220px;object-fit:contain;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);filter:drop-shadow(0 8px 18px rgba(0,0,0,0.6));transition:transform .25s ease,box-shadow .25s ease}
+        .logos-empresas img:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 8px 28px rgba(0,255,210,0.12),0 0 18px rgba(255,45,139,0.06)}
+
+        /* Carta principal */
+        .card{background:linear-gradient(180deg, rgba(12,14,22,0.72), rgba(8,10,16,0.7));border-radius:12px;padding:26px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 10px 40px rgba(0,0,0,0.65);}
+
+        .intro{font-size:1.05rem;color:#cbd8ff;margin-bottom:18px}
+        .highlight{color:var(--neon-magenta);font-weight:700}
+
+        /* Sección de detalles estilo paneles */
+        .details{display:flex;flex-wrap:wrap;gap:18px;margin:22px 0}
+        .detail-card{flex:1;min-width:230px;padding:18px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border:1px solid rgba(0,255,210,0.06);box-shadow:0 6px 18px rgba(0,0,0,0.6);position:relative}
+        .detail-card h3{color:var(--neon-cyan);margin-bottom:10px;font-weight:700}
+        .detail-card p{color:#c7d2ff}
+
+        /* Benefits adaptado al tema oscuro */
+        .benefits{padding:20px;border-radius:10px;margin:20px 0;background:linear-gradient(90deg, rgba(0,255,210,0.03), rgba(255,45,139,0.02));border:1px solid rgba(255,255,255,0.03)}
+        .benefits h2{color:var(--neon-green);text-align:center;margin-bottom:12px}
+        .benefits-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+        .benefits-list li{padding:10px 8px 10px 36px;position:relative;color:#d6e0ff}
+        .benefits-list li:before{content:'✔';position:absolute;left:10px;top:10px;color:var(--neon-cyan);text-shadow:0 0 8px rgba(0,255,210,0.12)}
+
+        /* CTA */
+        .cta{margin:28px 0;padding:22px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.04);background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+        .contact-btn{display:inline-block;padding:14px 28px;border-radius:999px;background:linear-gradient(90deg,var(--neon-cyan),var(--neon-magenta));color:#071017;font-weight:700;text-decoration:none;box-shadow:0 6px 26px rgba(0,255,210,0.12);transition:transform .18s ease,box-shadow .18s ease}
+        .contact-btn:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,255,210,0.18)}
+
+        .social-links{display:flex;justify-content:center;gap:12px;margin-top:14px}
+        .social-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:linear-gradient(90deg,#273b8f,#1a1f5a);color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,0.03)}
+
+        .signature{margin-top:18px;text-align:right;color:#bfcaff}
+
+        footer{margin-top:26px;padding:18px;border-radius:10px;text-align:center;color:#9fa8ff;border-top:1px solid rgba(255,255,255,0.02)}
+
+        /* Animaciones */
+        @keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+        .animated{animation:fadeIn .9s ease forwards}
+        .delay-1{animation-delay:.15s}.delay-2{animation-delay:.28s}.delay-3{animation-delay:.45s}
+
+        /* Responsivo */
+        @media(max-width:880px){
+            h1{font-size:1.9rem}
+            .logos-empresas img{height:60px}
+            .container{padding:14px}
+            .details{flex-direction:column}
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+            <!-- Logos de empresas -->
+            <div class="logos-empresas animated" style="display: flex; justify-content: center; align-items: center; gap: 40px; margin-bottom: 20px; margin-top: 10px;">
+                <img src="https://i.ibb.co/sdQ2LsVs/vivienda-vis-apartamentos-Valparaiso-Valledupar-4-logo-pkbe7vqqf346h6vt16evjbaf6nehnyf717h23iadc0.jpg" alt="Logo Valparaíso" style="height: 70px; max-width: 180px; object-fit: contain; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 6px;" />
+                <img src="https://i.ibb.co/pTV5gjn/LOGO-PUNTOS-NEMESIS.png" alt="Logo Nemesis Xpert" style="height: 70px; max-width: 180px; object-fit: contain; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 6px;" />
+            </div>
+            <header class="animated">
+                <h1>COPA VALPARAÍSO 2025</h1>
+                <p class="subtitle">Un evento que integrará entretenimiento, comunidad y marca</p>
+            </header>
+        
+        <div class="card">
+            <div class="intro animated">
+                <p>Nos complace invitarles a formar parte de un evento que marcará un antes y un después en la forma de integrar entretenimiento, comunidad y marca: la <span class="highlight">Copa Valparaíso 2025</span>, que se celebrará el próximo <span class="highlight">5 de octubre</span> en el conjunto cerrado Valparaíso.</p>
+            </div>
+            
+            <div class="details">
+                <div class="detail-card animated delay-1">
+                    <h3>EL EVENTO</h3>
+                    <p>Este torneo de FC25 (FIFA 25) reunirá entre 32 y 64 participantes, en una jornada familiar, competitiva y altamente visible en redes sociales.</p>
+                </div>
+                
+                <div class="detail-card animated delay-1">
+                    <h3>ORGANIZACIÓN</h3>
+                    <p>El evento será producido por nuestra empresa <span class="highlight">NEMESIS XPERT</span>, especializada en experiencias gamer. Contamos con todo el equipo técnico necesario para garantizar una experiencia excepcional.</p>
+                </div>
+                
+                <div class="detail-card animated delay-2">
+                    <h3>BUSCAMOS</h3>
+                    <p>Aliados estratégicos que deseen sumarse con aportes en efectivo o en especie (premios, productos, servicios). También invitamos a emprendimientos gastronómicos y de bebidas a ser proveedores oficiales.</p>
+                </div>
+                
+                <div class="detail-card animated delay-2">
+                    <h3>PROYECCIÓN</h3>
+                    <p>Este evento busca convertirse en referente local, replicable en otros conjuntos para un futuro encuentro donde participen representantes de todos los conjuntos de las AMERICAS.</p>
+                </div>
+            </div>
+            
+            <div class="benefits animated delay-3">
+                <h2>¿Por qué unirse a la Copa Valparaíso 2025?</h2>
+                <ul class="benefits-list">
+                    <li>Visibilidad en redes sociales y transmisiones en vivo</li>
+                    <li>Presencia de marca en espacios físicos y digitales</li>
+                    <li>Acceso directo a público objetivo joven y activo</li>
+                    <li>Posibilidad de activaciones, demostraciones y ventas</li>
+                    <li>Alianza con una marca organizadora sólida y creativa</li>
+                </ul>
+            </div>
+            
+            <div class="cta animated delay-3">
+                <h2>¿Interesado en participar?</h2>
+                <p>Esperamos contar con su apoyo para hacer de la Copa Valparaíso 2025 un evento inolvidable</p>
+                
+                <a href="tel:+573027530234" class="contact-btn">Llamar ahora: +57 302 7530234</a>
+                
+                <div class="social-links">
+                    <a href="https://www.instagram.com/nemesis_xpert" target="_blank" class="social-btn instagram">
+                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+                        </svg>
+                        @nemesis_xpert
+                    </a>
+                </div>
+            </div>
+            
+            <div class="signature animated delay-3">
+                <p>Atentamente,</p>
+                <p><strong>Jose Mauro Chica</strong></p>
+                <p>CEO de NEMESIS XPERT</p>
+                <p>+57 302 7530234</p>
+            </div>
+        </div>
+        
+        <footer class="animated delay-3">
+            <p>© 2025 NEMESIS XPERT - Todos los derechos reservados</p>
+        </footer>
+    </div>
+
+    <script>
+        // Efecto de revelado al hacer scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animated');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
