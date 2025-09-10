@@ -1,12 +1,8 @@
-# VALPARAISO — Copa Valparaíso 2025
+# VALPARAISO - Copa Valparaíso 2025
 
-Landing page promocional para la Copa Valparaíso 2025.
+Landing sencilla para la Copa Valparaíso 2025, diseño gamer.
 
-Contenido:
-- `index.html`: plantilla con diseño gamer profesional y logos.
+Contiene:
+- `index.html` (diseño principal)
 
-Cómo probar:
-1. Abrir `index.html` en tu navegador.
-
-Contacto:
-- Jose Mauro Chica — +57 302 7530234
+Publicado en el repo principal `FC25TORNEO` bajo la rama `local-backup`.
