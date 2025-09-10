@@ -1,0 +1,94 @@
+/* Fuentes futuristas */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
+
+:root {
+    --bg-overlay: rgba(6,8,18,0.6);
+    --panel: rgba(12,14,22,0.65);
+    --glass: rgba(255,255,255,0.03);
+    --neon-cyan: #00ffd2;
+    --neon-magenta: #ff2d8b;
+    --neon-green: #39ff14;
+    --accent: linear-gradient(90deg, rgba(0,255,210,0.12), rgba(255,45,139,0.08));
+    --soft: #c7d2ff;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+
+body{
+    background: url('https://i.ibb.co/qYxQRsKd/f35c76842a803313f087b15827c34ebb6890e71b-1920x1080.webp') center/cover no-repeat fixed;
+    font-family: 'Rajdhani', 'Orbitron', sans-serif;
+    color: var(--soft);
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    position:relative;
+}
+
+/* Dark overlay to improve contrast */
+body::before{
+    content:'';position:fixed;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.65));z-index:0;pointer-events:none
+}
+
+.container{
+    max-width:1100px;margin:28px auto;padding:24px;position:relative;z-index:1;
+    display:block
+}
+
+/* Header con estilo gamer */
+header{
+    display:flex;align-items:center;gap:18px;justify-content:center;padding:20px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.05);backdrop-filter: blur(6px);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0,0,0,0.45) inset;
+}
+
+/* Título con brillo neón */
+h1{font-family:'Orbitron',sans-serif;font-size:2.6rem;color:var(--neon-cyan);text-transform:uppercase;letter-spacing:2px;text-shadow:0 0 18px rgba(0,255,210,0.12),0 4px 18px rgba(0,0,0,0.6)}
+.subtitle{color:#a8b3ff;opacity:.95;font-size:1rem}
+
+/* Logos */
+.logos-empresas{display:flex;justify-content:center;align-items:center;gap:28px;margin-bottom:12px}
+.logos-empresas img{height:72px;max-width:220px;object-fit:contain;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));padding:8px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);filter:drop-shadow(0 8px 18px rgba(0,0,0,0.6));transition:transform .25s ease,box-shadow .25s ease}
+.logos-empresas img:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 8px 28px rgba(0,255,210,0.12),0 0 18px rgba(255,45,139,0.06)}
+
+/* Carta principal */
+.card{background:linear-gradient(180deg, rgba(12,14,22,0.72), rgba(8,10,16,0.7));border-radius:12px;padding:26px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 10px 40px rgba(0,0,0,0.65);}
+
+.intro{font-size:1.05rem;color:#cbd8ff;margin-bottom:18px}
+.highlight{color:var(--neon-magenta);font-weight:700}
+
+/* Sección de detalles estilo paneles */
+.details{display:flex;flex-wrap:wrap;gap:18px;margin:22px 0}
+.detail-card{flex:1;min-width:230px;padding:18px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.01));border:1px solid rgba(0,255,210,0.06);box-shadow:0 6px 18px rgba(0,0,0,0.6);position:relative}
+.detail-card h3{color:var(--neon-cyan);margin-bottom:10px;font-weight:700}
+.detail-card p{color:#c7d2ff}
+
+/* Benefits adaptado al tema oscuro */
+.benefits{padding:20px;border-radius:10px;margin:20px 0;background:linear-gradient(90deg, rgba(0,255,210,0.03), rgba(255,45,139,0.02));border:1px solid rgba(255,255,255,0.03)}
+.benefits h2{color:var(--neon-green);text-align:center;margin-bottom:12px}
+.benefits-list{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.benefits-list li{padding:10px 8px 10px 36px;position:relative;color:#d6e0ff}
+.benefits-list li:before{content:'✔';position:absolute;left:10px;top:10px;color:var(--neon-cyan);text-shadow:0 0 8px rgba(0,255,210,0.12)}
+
+/* CTA */
+.cta{margin:28px 0;padding:22px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.04);background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+.contact-btn{display:inline-block;padding:14px 28px;border-radius:999px;background:linear-gradient(90deg,var(--neon-cyan),var(--neon-magenta));color:#071017;font-weight:700;text-decoration:none;box-shadow:0 6px 26px rgba(0,255,210,0.12);transition:transform .18s ease,box-shadow .18s ease}
+.contact-btn:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,255,210,0.18)}
+
+.social-links{display:flex;justify-content:center;gap:12px;margin-top:14px}
+.social-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:linear-gradient(90deg,#273b8f,#1a1f5a);color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,0.03)}
+
+.signature{margin-top:18px;text-align:right;color:#bfcaff}
+
+footer{margin-top:26px;padding:18px;border-radius:10px;text-align:center;color:#9fa8ff;border-top:1px solid rgba(255,255,255,0.02)}
+
+/* Animaciones */
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.animated{animation:fadeIn .9s ease forwards}
+.delay-1{animation-delay:.15s}.delay-2{animation-delay:.28s}.delay-3{animation-delay:.45s}
+
+/* Responsivo */
+@media(max-width:880px){
+    h1{font-size:1.9rem}
+    .logos-empresas img{height:60px}
+    .container{padding:14px}
+    .details{flex-direction:column}
+}
